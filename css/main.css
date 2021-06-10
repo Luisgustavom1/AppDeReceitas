@@ -56,11 +56,15 @@ section{
     justify-content: space-between;
     border-radius: .3rem;
 }
+.cards:last-child{
+    margin-bottom: 3rem;
+}
 .cards1{
     grid-row: 1/3;
     grid-column: 1/3;
     width: 100%;
     height: 100%;
+    background-image: none;
 }
 .cards button{
     color: white;
@@ -103,7 +107,6 @@ section{
     padding: 1rem 0;
     margin-top: 4rem;
     bottom: 0;
-    position: absolute;
 }
 
 /* Receita toda */
@@ -161,7 +164,7 @@ section{
     margin-bottom: .7rem;
 }
 .modal p{
-    margin-left: 2rem;
+    margin: 0 2em;
 }
 
 .modal button{
