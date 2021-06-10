@@ -1,8 +1,10 @@
 let cards = document.querySelectorAll('.cards')
 
-fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+function getMeal(){
+    fetch('https://www.themealdb.com/api/json/v1/1/random.php')
     .then(response => response.json())
     .then(data => init(data))
+}
 
 function init(resultFromAPI){
     addCard(resultFromAPI)
@@ -17,6 +19,7 @@ function createCard(response){
             </footer>
         </div>
     `
+    console.log('ta dando certo')
     return html
 } 
 function addCard(response){
@@ -44,4 +47,4 @@ function addImage(response){
 
 
 
-document.querySelector('.addReceita').addEventListener('click', init)
+document.querySelector('.addReceita').addEventListener('click', getMeal)
