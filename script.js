@@ -8,58 +8,10 @@ function getMeal(){
 
 
 function init(resultFromAPI){
-    CreateNewMealRandom.addCard(resultFromAPI)
+    modalOverlayVerReceita.addCard(resultFromAPI)
     modalOverlayVerReceita.modalReceitaRandom(resultFromAPI)
 
-    var testando = resultFromAPI.meals.map(function(obj){
-        return Object.keys(obj).map(function(key){
-            return obj[key]
-        })
-    })
-    console.log(testando)
-}
-
-class CreateNewMeal {
-    addCard(response){
-        const section = document.querySelector('.sectionCards')
-        const cards = document.querySelector('.cards1')
-
-        cards.innerHTML = this.createCard(response)
-        section.appendChild(cards)
-
-        this.createCard(response)
-        this.addImage(response)  
-    }
-
-    createCard(response){
-            const html = `     
-                    <footer>
-                        <p id="titulo">${response.meals[0].strMeal}</p>
-                        <button id="verReceita" onclick='modalOverlayVerReceita.openModalVerReceita()'>Ver receita</button>
-                    </footer>
-            `
-            return html
-    }
-
-    
-    addImage(response){    
-        let style = document.createElement('style')
-        style.textContent = `
-            .cards1{
-                background-image: url(${response.meals[0].strMealThumb})
-            }
-            `
-            cards[0].appendChild(style)
-    }
-}
-
-class SetarLocalStorage {
-    get(){
-        return JSON.parse(localStorage.getItem('Meals'))
-    }
-    set(meal){
-        localStorage.setItem('Meals', JSON.stringify(meal))
-    }
+    console.log(resultFromAPI)
 }
 
 class ModalOverlayVerReceita {
@@ -92,14 +44,94 @@ class ModalOverlayVerReceita {
         document.querySelector('.modal-overlay img').setAttribute('src', responseArr[0][6])
         document.querySelector('.modal #modoDePreparo').innerHTML = responseArr[0][5]
     }
+
+    closeModalRandom(){
+        document.querySelector('.modal-overlay').classList.remove('active')
+    }
+
+    addCard(response){
+        document.querySelector('#titulo').innerHTML = response.meals[0].strMeal
+        this.addImage(response)
+    }
+
+    addImage(response){    
+        let style = document.createElement('style')
+        style.textContent = `
+            .cards1{
+                background-image: url(${response.meals[0].strMealThumb})
+            }
+            `
+            cards[0].appendChild(style)
+    }
 }
 
-const CreateNewMealRandom = new CreateNewMeal()
+const createNewMeal = {
+        nome: document.querySelector('#title').value,
+        ingredientes: document.querySelector('textarea#ingredientes').value,
+        preparo: document.querySelector('textarea#preparo').value,  
+    getForm(){
+        return{
+            nome: createNewMeal.nome.value,
+            ingredientes: createNewMeal.ingredientes.value,
+            preparo: createNewMeal.preparo.value
+        }
+    },
+
+    createCard(){
+        const nome = createNewMeal.getForm() 
+        const html = ` 
+            <div class='cards'>    
+                <footer>    
+                    <p id="titulo">${nome.value}</p>
+                    <button id="verReceita" onclick='modalOverlayVerReceita.openModalVerReceita()'>Ver receita</button>
+                </footer>
+            </div>
+            `
+        return {
+            html,
+            nome
+        }
+    },
+
+    addCard(){
+        const section = document.querySelector('.sectionCards')
+        const div = document.createElement('div')
+
+        div.innerHTML = createNewMeal.createCard()
+        section.appendChild(div)
+    },
+
+    openCloseModal(){
+        document.querySelector('.modal-overlay.addReceita').classList.toggle('active')
+    }
+}
+
+class SetarLocalStorage {
+    get(){
+        return JSON.parse(localStorage.getItem('Meals'))
+    }
+    set(meal){
+        localStorage.setItem('Meals', JSON.stringify(meal))
+    }
+}
+
 const CreateLocalStorage = new SetarLocalStorage()
 const modalOverlayVerReceita = new ModalOverlayVerReceita()
 
 window.addEventListener('onload', getMeal())
 
-document.querySelectorAll('#verReceita').forEach(function(verReceita){
-    verReceita.addEventListener('click', (e) => console.log(e))
+document.querySelector('#trocar').addEventListener('click', function(){
+    getMeal()
+    document.location.reload(true)
 })
+
+document.querySelector('#sair').addEventListener('click', modalOverlayVerReceita.closeModalRandom)
+
+document.querySelector('.verReceita.card1').addEventListener('click', modalOverlayVerReceita.openModalVerReceita)
+
+document.querySelector('.addReceita').addEventListener('click', createNewMeal.openCloseModal)
+document.querySelector('#cancelar').addEventListener('click', createNewMeal.openCloseModal)
+
+document.querySelector('#adicionar').addEventListener('click', createNewMeal.addCard)
+
+

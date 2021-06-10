@@ -19,14 +19,7 @@
             <div class="cards cards1">
                 <footer>
                     <p id="titulo">Bolinho de chuva</p>
-                    <button id="verReceita">Ver receita</button>
-                </footer>
-            </div>
-
-            <div class="cards">
-                <footer>
-                    <p id="titulo"></p>
-                    <button id="verReceita">Ver receita</button>
+                    <button class="verReceita card1">Ver receita</button>
                 </footer>
             </div>
 
@@ -63,33 +56,33 @@
                 <h5>Modo de preparo</h5>
                 <p id="modoDePreparo"></p>
                 <section id="btns">
-                    <button id="editar">Editar</button>
-                    <button id="remover">Remover</button>
+                    <button id="trocar" type="submit">Trocar receita</button>
+                    <button id="sair">Sair</button>
                 </section>
             </div>
         </div>
 
         <div class="modal-overlay addReceita">
             <div class="modal addReceita">
-                <div class="title">
-                    <label for="title">Nome da receita *</label>
-                    <input type="text" id="title">
-                </div>
+                    <div class="title">
+                        <label for="title">Nome da receita *</label>
+                        <input type="text" name='title' id="title">
+                    </div>
 
-                <div class="ingredientes">
-                    <label for="ingredientes">Ingredientes*</label>
-                    <textarea name="ingredientes" id="ingredientes" cols="30" rows="5"></textarea>
-                </div>
+                    <div class="ingredientes">
+                        <label for="ingredientes">Ingredientes*</label>
+                        <textarea name="ingredientes" id="ingredientes" cols="30" rows="5"></textarea>
+                    </div>
 
-                <div class="preparo">
-                    <label for="preparo">Modo de preparo*</label>
-                    <textarea name="modoDePreparo" id="preparo" cols="30" rows="5"></textarea>
-                </div>
+                    <div class="preparo">
+                        <label for="preparo">Modo de preparo*</label>
+                        <textarea name="modoDePreparo" id="preparo" cols="30" rows="5"></textarea>
+                    </div>
 
-                <article id="btns">
-                    <button id="adicionar">Adicionar</button>
-                    <button id="cancelar">Cancelar</button>
-                </article>
+                    <article id="btns">
+                        <button id="adicionar">Adicionar</button>
+                        <button id="cancelar">Cancelar</button>
+                    </article>
             </div>
         </div>
     </main>
