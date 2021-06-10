@@ -140,7 +140,7 @@ section{
     opacity: 0;
     visibility: hidden;
 
-    z-index: 998;
+    z-index: 999;
 }
 .modal-overlay.active{
     opacity: 1;
@@ -150,6 +150,8 @@ section{
     border-radius: .6rem;
     background-color: white;
     width: 60%;
+    max-height: 90vh;
+    overflow: scroll;
 }
 .modal h5{
     font-size: 1rem;
@@ -182,7 +184,7 @@ section{
 .modal #btns{
     display: flex;
     justify-content: space-around;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
 }
 
 /* add receita */

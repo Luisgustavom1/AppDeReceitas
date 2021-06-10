@@ -6,6 +6,7 @@ function getMeal(){
     .then(data => init(data))
 }
 
+
 function init(resultFromAPI){
     CreateNewMealRandom.addCard(resultFromAPI)
     modalOverlayVerReceita.modalReceitaRandom(resultFromAPI)
@@ -89,7 +90,7 @@ class ModalOverlayVerReceita {
         }
 
         document.querySelector('.modal-overlay img').setAttribute('src', responseArr[0][6])
-        document.querySelector('.ModoDePreparo').innerHTML = responseArr[0][5]
+        document.querySelector('.modal #modoDePreparo').innerHTML = responseArr[0][5]
     }
 }
 
