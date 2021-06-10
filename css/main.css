@@ -49,7 +49,7 @@ section{
 .cards {
     width: 270px;
     height: 270px;
-    background-image: url(https:\/\/www.themealdb.com\/images\/media\/meals\/txsupu1511815755.jpg);
+    background-image: url();
     background-size: cover;
     display: flex;
     align-items: flex-end;
