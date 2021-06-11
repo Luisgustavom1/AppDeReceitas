@@ -6,7 +6,6 @@ function getMeal(){
     .then(data => init(data))
 }
 
-
 function init(resultFromAPI){
     modalOverlayVerReceita.addCard(resultFromAPI)
     modalOverlayVerReceita.modalReceitaRandom(resultFromAPI)
@@ -15,8 +14,8 @@ function init(resultFromAPI){
 }
 
 class ModalOverlayVerReceita {
-    openModalVerReceita(){
-        document.querySelector('.modal-overlay').classList.add('active')
+    openModalVerReceitaRandom(){
+        document.querySelector('.modal-overlay.verReceita.random').classList.add('active')
     }
 
     modalReceitaRandom(response){
@@ -29,9 +28,7 @@ class ModalOverlayVerReceita {
         })
 
         for(var c = 9; c < 28; c++){
-            if(responseArr[0][c] == ""){
-                console.log('NAO FAZ NADAAAAAAAAAAAAAAAAAAAAAAA')
-            }else{
+            if(responseArr[0][c] !== ""){
                 const ul = document.querySelector('.lista')
                 const lis = document.createElement('li')
 
@@ -65,57 +62,94 @@ class ModalOverlayVerReceita {
     }
 }
 
-const createNewMeal = {
-        nome: document.querySelector('#title').value,
-        ingredientes: document.querySelector('textarea#ingredientes').value,
-        preparo: document.querySelector('textarea#preparo').value,  
-    getForm(){
-        return{
-            nome: createNewMeal.nome.value,
-            ingredientes: createNewMeal.ingredientes.value,
-            preparo: createNewMeal.preparo.value
+class CreateNewMeal {
+    constructor() {
+        this.id = 1;
+        this.arrayReceita = [];
+    }
+
+    saveMeal(){
+        let receita = this.getMeal();
+
+        if(this.validationMeal(receita)){
+            this.addMeal(receita)
+            this.openCloseModal()
+            this.clearModal()
+            this.addCard()
+            SetarLocalStorage.set(this.arrayReceita)
         }
-    },
 
-    createCard(){
-        const nome = createNewMeal.getForm() 
-        const html = ` 
-            <div class='cards'>    
-                <footer>    
-                    <p id="titulo">${nome.value}</p>
-                    <button id="verReceita" onclick='modalOverlayVerReceita.openModalVerReceita()'>Ver receita</button>
-                </footer>
-            </div>
-            `
-        return {
-            html,
-            nome
+        console.log(this.arrayReceita)
+    }
+
+    getMeal(){
+        let receita = {};
+
+        receita.id = this.id;
+        receita.title = document.querySelector('#title').value;
+        receita.ingredientes = document.querySelector('#ingredientes').value;
+        receita.preparo = document.querySelector('#preparo').value;
+
+        return receita
+    }
+
+    validationMeal(receita){
+        if(receita.title == '' || receita.ingredientes == '' || receita.preparo == ''){
+            alert('Preencha todos os dados!!')
+            return false
         }
-    },
+        return true
+    }
 
-    addCard(){
-        const section = document.querySelector('.sectionCards')
-        const div = document.createElement('div')
-
-        div.innerHTML = createNewMeal.createCard()
-        section.appendChild(div)
-    },
+    addMeal(receita){  
+        this.arrayReceita.push(receita)
+        this.id++
+    }
+    
+    clearModal(){
+        document.getElementById('title').value = '';
+        document.getElementById('ingredientes').value = '';
+        document.getElementById('preparo').value = '';
+    }
 
     openCloseModal(){
         document.querySelector('.modal-overlay.addReceita').classList.toggle('active')
     }
+
+    addCard(){
+        const section = document.querySelector('.sectionCards')
+        const div = document.createElement('div')
+        div.innerHTML = ''
+
+        for(var c = 0; c < this.arrayReceita.length; c++){
+            const html = `
+                <div class="cards">
+                    <footer>
+                        <p id="titulo">${this.arrayReceita[c].title}</p>
+                        <button class="verReceita card" onclick='createNewMeal.openCloseModalVerReceita(${this.arrayReceita[c].id})'>Ver receita</button>
+                    </footer>
+                </div>
+                `
+                div.innerHTML = html
+                section.appendChild(div)
+        }
+    }
+
+    openCloseModalVerReceita(){
+        document.querySelector('.modal-overlay.verReceita.card').classList.toggle('active')
+    }
 }
 
-class SetarLocalStorage {
+const SetarLocalStorage = {
     get(){
         return JSON.parse(localStorage.getItem('Meals'))
-    }
+    },
     set(meal){
         localStorage.setItem('Meals', JSON.stringify(meal))
     }
 }
 
-const CreateLocalStorage = new SetarLocalStorage()
+var createNewMeal = new CreateNewMeal()
 const modalOverlayVerReceita = new ModalOverlayVerReceita()
 
 window.addEventListener('onload', getMeal())
@@ -127,11 +161,10 @@ document.querySelector('#trocar').addEventListener('click', function(){
 
 document.querySelector('#sair').addEventListener('click', modalOverlayVerReceita.closeModalRandom)
 
-document.querySelector('.verReceita.card1').addEventListener('click', modalOverlayVerReceita.openModalVerReceita)
+document.querySelector('.verReceita.card1').addEventListener('click', modalOverlayVerReceita.openModalVerReceitaRandom)
 
 document.querySelector('.addReceita').addEventListener('click', createNewMeal.openCloseModal)
 document.querySelector('#cancelar').addEventListener('click', createNewMeal.openCloseModal)
 
-document.querySelector('#adicionar').addEventListener('click', createNewMeal.addCard)
 
 

@@ -18,7 +18,7 @@
         <section class="sectionCards">
             <div class="cards cards1">
                 <footer>
-                    <p id="titulo">Bolinho de chuva</p>
+                    <p id="titulo"></p>
                     <button class="verReceita card1">Ver receita</button>
                 </footer>
             </div>
@@ -26,26 +26,12 @@
             <div class="cards">
                 <footer>
                     <p id="titulo">Bolinho de chuva</p>
-                    <button id="verReceita">Ver receita</button>
-                </footer>
-            </div>
-
-            <div class="cards">
-                <footer>
-                    <p id="titulo">Bolinho de chuva</p>
-                    <button id="verReceita">Ver receita</button>
-                </footer>
-            </div>
-
-            <div class="cards">
-                <footer>
-                    <p id="titulo">Bolinho de chuva</p>
-                    <button id="verReceita">Ver receita</button>
+                    <button class="verReceita card">Ver receita</button>
                 </footer>
             </div>
         </section>
 
-        <div class="modal-overlay verReceita">
+        <div class="modal-overlay verReceita random">
             <div class="modal">
                 <header class="headerOverlay"></header>
                 <h5>Ingredientes</h5>
@@ -58,6 +44,23 @@
                 <section id="btns">
                     <button id="trocar" type="submit">Trocar receita</button>
                     <button id="sair">Sair</button>
+                </section>
+            </div>
+        </div>
+
+        <div class="modal-overlay verReceita card">
+            <div class="modal">
+                <header class="headerOverlay">Bolinho de chuva</header>
+                <h5>Ingredientes</h5>
+                <article>
+                    <ul class="lista"></ul>
+                    <img src="" alt="">
+                </article>
+                <h5>Modo de preparo</h5>
+                <p id="modoDePreparo"></p>
+                <section id="btns">
+                    <button id="Deletar" type="submit">Deletar</button>
+                    <button id="sair" onclick="createNewMeal.openCloseModalVerReceita()">Sair</button>
                 </section>
             </div>
         </div>
@@ -80,7 +83,7 @@
                     </div>
 
                     <article id="btns">
-                        <button id="adicionar">Adicionar</button>
+                        <button id="adicionar" onclick="createNewMeal.saveMeal()">Adicionar</button>
                         <button id="cancelar">Cancelar</button>
                     </article>
             </div>
