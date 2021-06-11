@@ -13,6 +13,10 @@ function init(resultFromAPI){
     console.log(resultFromAPI)
 }
 
+function reload(){
+    createNewMeal.addMeal()
+}
+
 class ModalOverlayVerReceita {
     openModalVerReceitaRandom(){
         document.querySelector('.modal-overlay.verReceita.random').classList.add('active')
@@ -73,13 +77,18 @@ class CreateNewMeal {
 
         if(this.validationMeal(receita)){
             this.addMeal(receita)
+            SetarLocalStorage.set(this.arrayReceita)
             this.openCloseModal()
             this.clearModal()
             this.addCard()
-            SetarLocalStorage.set(this.arrayReceita)
         }
 
         console.log(this.arrayReceita)
+        console.log(SetarLocalStorage.get().map(function(obj){
+            return Object.keys(obj).map(function(key){
+                return obj[key]
+            })
+        }).length)
     }
 
     getMeal(){
@@ -117,16 +126,22 @@ class CreateNewMeal {
     }
 
     addCard(){
+        let todas = SetarLocalStorage.get().map(function(obj){
+            return Object.keys(obj).map(function(key){
+                return obj[key]
+            })
+        })
+        console.log(todas.length)
         const section = document.querySelector('.sectionCards')
         const div = document.createElement('div')
         div.innerHTML = ''
 
-        for(var c = 0; c < this.arrayReceita.length; c++){
+        for(var c = 0; c < todas.length; c++){
             const html = `
                 <div class="cards">
                     <footer>
-                        <p id="titulo">${this.arrayReceita[c].title}</p>
-                        <button class="verReceita card" onclick='createNewMeal.openCloseModalVerReceita(${this.arrayReceita[c].id})'>Ver receita</button>
+                        <p id="titulo">${todas[c][1]}</p>
+                        <button class="verReceita card" onclick='createNewMeal.openCloseModalVerReceita(${todas[c][0]})'>Ver receita</button>
                     </footer>
                 </div>
                 `
@@ -142,7 +157,7 @@ class CreateNewMeal {
 
 const SetarLocalStorage = {
     get(){
-        return JSON.parse(localStorage.getItem('Meals'))
+        return JSON.parse(localStorage.getItem('Meals')) || []
     },
     set(meal){
         localStorage.setItem('Meals', JSON.stringify(meal))
@@ -152,7 +167,8 @@ const SetarLocalStorage = {
 var createNewMeal = new CreateNewMeal()
 const modalOverlayVerReceita = new ModalOverlayVerReceita()
 
-window.addEventListener('onload', getMeal())
+window.addEventListener('onload', getMeal(), createNewMeal.addCard())
+
 
 document.querySelector('#trocar').addEventListener('click', function(){
     getMeal()
@@ -165,6 +181,9 @@ document.querySelector('.verReceita.card1').addEventListener('click', modalOverl
 
 document.querySelector('.addReceita').addEventListener('click', createNewMeal.openCloseModal)
 document.querySelector('#cancelar').addEventListener('click', createNewMeal.openCloseModal)
+
+
+
 
 
 
