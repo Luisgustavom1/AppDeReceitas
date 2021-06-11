@@ -13,10 +13,6 @@ function init(resultFromAPI){
     console.log(resultFromAPI)
 }
 
-function reload(){
-    createNewMeal.addMeal()
-}
-
 class ModalOverlayVerReceita {
     openModalVerReceitaRandom(){
         document.querySelector('.modal-overlay.verReceita.random').classList.add('active')
@@ -84,11 +80,6 @@ class CreateNewMeal {
         }
 
         console.log(this.arrayReceita)
-        console.log(SetarLocalStorage.get().map(function(obj){
-            return Object.keys(obj).map(function(key){
-                return obj[key]
-            })
-        }).length)
     }
 
     getMeal(){
@@ -131,22 +122,24 @@ class CreateNewMeal {
                 return obj[key]
             })
         })
+        var divs = document.createElement('div')
+        divs.innerHTML = ''
         console.log(todas.length)
-        const section = document.querySelector('.sectionCards')
-        const div = document.createElement('div')
-        div.innerHTML = ''
-
-        for(var c = 0; c < todas.length; c++){
+        
+        for(var c = 0 ; c < todas.length; c++){
+            const section = document.querySelector('.sectionCards')
+            divs = document.createElement('div')
             const html = `
-                <div class="cards">
+                <div class="cards" style='margin-bottom: 0px'>
                     <footer>
                         <p id="titulo">${todas[c][1]}</p>
                         <button class="verReceita card" onclick='createNewMeal.openCloseModalVerReceita(${todas[c][0]})'>Ver receita</button>
                     </footer>
                 </div>
                 `
-                div.innerHTML = html
-                section.appendChild(div)
+                divs.innerHTML = html
+                section.appendChild(divs)
+                console.log(todas[c][1])
         }
     }
 
@@ -168,7 +161,6 @@ var createNewMeal = new CreateNewMeal()
 const modalOverlayVerReceita = new ModalOverlayVerReceita()
 
 window.addEventListener('onload', getMeal(), createNewMeal.addCard())
-
 
 document.querySelector('#trocar').addEventListener('click', function(){
     getMeal()
