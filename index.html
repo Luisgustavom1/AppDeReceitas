@@ -22,6 +22,9 @@
                     <button class="verReceita card1">Ver receita</button>
                 </footer>
             </div>
+            <section class="sectionCards dois">
+
+            </section>
         </section>
 
         <div class="modal-overlay verReceita random">
@@ -46,14 +49,14 @@
                 <header class="headerOverlay">Bolinho de chuva</header>
                 <h5>Ingredientes</h5>
                 <article>
-                    <ul class="lista"></ul>
+                    <ul class="listaTwo"></ul>
                     <img src="" alt="">
                 </article>
                 <h5>Modo de preparo</h5>
-                <p id="modoDePreparo"></p>
+                <p id="modoDePreparoTwo"></p>
                 <section id="btns">
-                    <button id="Deletar" type="submit">Deletar</button>
-                    <button id="sair" onclick="createNewMeal.openCloseModalVerReceita()">Sair</button>
+                    <button id="Deletar">Deletar</button>
+                    <button id="sairTwo" onclick="createNewMeal.closeModal()">Sair</button>
                 </section>
             </div>
         </div>
@@ -72,7 +75,12 @@
 
                     <div class="preparo">
                         <label for="preparo">Modo de preparo*</label>
-                        <textarea name="modoDePreparo" id="preparo" cols="30" rows="5"></textarea>
+                        <textarea name="modoDePreparo" id="preparo" cols="10" rows="5"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="imagem">Adicionar imagem (opcional)</label>
+                        <textarea name="imagem" id="imagem" cols="30" rows="10" placeholder="Escreva a URL"></textarea>
                     </div>
 
                     <article id="btns">

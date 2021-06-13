@@ -9,8 +9,6 @@ function getMeal(){
 function init(resultFromAPI){
     modalOverlayVerReceita.addCard(resultFromAPI)
     modalOverlayVerReceita.modalReceitaRandom(resultFromAPI)
-
-    console.log(resultFromAPI)
 }
 
 class ModalOverlayVerReceita {
@@ -78,8 +76,6 @@ class CreateNewMeal {
             this.clearModal()
             this.addCard()
         }
-
-        console.log(this.arrayReceita)
     }
 
     getMeal(){
@@ -89,6 +85,7 @@ class CreateNewMeal {
         receita.title = document.querySelector('#title').value;
         receita.ingredientes = document.querySelector('#ingredientes').value;
         receita.preparo = document.querySelector('#preparo').value;
+        receita.imagem = document.querySelector('#imagem').value;
 
         return receita
     }
@@ -102,7 +99,8 @@ class CreateNewMeal {
     }
 
     addMeal(receita){  
-        this.arrayReceita.push(receita)
+        console.log(this.arrayReceita)
+        this.arrayReceita.push(receita);
         this.id++
     }
     
@@ -110,6 +108,7 @@ class CreateNewMeal {
         document.getElementById('title').value = '';
         document.getElementById('ingredientes').value = '';
         document.getElementById('preparo').value = '';
+        document.getElementById('imagem').value = '';
     }
 
     openCloseModal(){
@@ -122,29 +121,66 @@ class CreateNewMeal {
                 return obj[key]
             })
         })
-        var divs = document.createElement('div')
-        divs.innerHTML = ''
-        console.log(todas.length)
+        
+        var section = document.querySelector('.sectionCards.dois')
+        section.innerHTML = ''
         
         for(var c = 0 ; c < todas.length; c++){
-            const section = document.querySelector('.sectionCards')
-            divs = document.createElement('div')
+            const divs = document.createElement('div')
             const html = `
                 <div class="cards" style='margin-bottom: 0px'>
                     <footer>
                         <p id="titulo">${todas[c][1]}</p>
-                        <button class="verReceita card" onclick='createNewMeal.openCloseModalVerReceita(${todas[c][0]})'>Ver receita</button>
+                        <button class="verReceita card" onclick='createNewMeal.openModalVerReceita(${todas[c][0]})'>Ver receita</button>
                     </footer>
                 </div>
                 `
                 divs.innerHTML = html
                 section.appendChild(divs)
-                console.log(todas[c][1])
         }
     }
 
-    openCloseModalVerReceita(){
-        document.querySelector('.modal-overlay.verReceita.card').classList.toggle('active')
+    openModalVerReceita(id){
+        document.querySelector('.modal-overlay.verReceita.card').classList.add('active')
+        this.addVerReceita(id)
+
+        document.querySelector('#Deletar').setAttribute(`onclick`, `createNewMeal.deletar(${id})`)
+    }
+
+    closeModal(){
+        document.querySelector('.modal-overlay.verReceita.card').classList.remove('active')  
+        
+        document.querySelector('#Deletar').removeAttribute('onclick')
+    }
+
+    addVerReceita(id){
+        let todas = SetarLocalStorage.get().map(function(obj){
+            return Object.keys(obj).map(function(key){
+                return obj[key]
+            })
+        })
+
+        document.querySelector('.listaTwo').innerHTML = todas[id - 1][2].replace(/\r?\n/g, '<br />')
+        document.querySelector('#modoDePreparoTwo').innerHTML = todas[id - 1][3] 
+
+    }
+    
+    deletar(id){
+        const todas = SetarLocalStorage.get().map(function(obj){
+            return Object.keys(obj).map(function(key){
+                return obj[key]
+            })
+        })
+        console.log(todas)
+        this.arrayReceita = todas
+        for(var c = 0; c < this.arrayReceita.length; c++){
+            if(this.arrayReceita[c][0] == id){
+                this.arrayReceita.splice(c, 1)
+                console.log(this.arrayReceita)
+                SetarLocalStorage.set(this.arrayReceita)
+            }
+        }
+        document.location.reload(true)
     }
 }
 

@@ -45,6 +45,13 @@ section{
     grid-gap: 1.3rem;
 }
 
+/* section dois */
+.sectionCards.dois{
+    display: grid;
+    width: 400px;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 0px;
+}
 /* card */
 .cards {
     width: 270px;
@@ -169,7 +176,6 @@ section{
 .modal p{
     margin: 0 2em;
 }
-
 .modal button{
     color: white;
     height: 2.5rem;
@@ -212,4 +218,8 @@ section{
     resize: none;
 }
 
+.modal #imagem{
+    height: 2rem;
+    resize: none;
+}
 
