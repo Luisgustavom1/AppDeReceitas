@@ -62,13 +62,13 @@ class ModalOverlayVerReceita {
 
 class CreateNewMeal {
     constructor() {
-        this.id = 1;
+        this.id = SetarLocalStorage.get() != '' ? SetarLocalStorage.get()[SetarLocalStorage.get().length - 1].id + 1 : 1 ;
         this.arrayReceita = SetarLocalStorage.get() || [];
+        // SetarLocalStorage.get() != '' ? SetarLocalStorage.get()[SetarLocalStorage.get().length - 1][0]
     }
 
     saveMeal(){
         let receita = this.getMeal();
-
         if(this.validationMeal(receita)){
             this.addMeal(receita)
             SetarLocalStorage.set(this.arrayReceita)
@@ -85,7 +85,7 @@ class CreateNewMeal {
         receita.title = document.querySelector('#title').value;
         receita.ingredientes = document.querySelector('#ingredientes').value;
         receita.preparo = document.querySelector('#preparo').value;
-        receita.imagem = document.querySelector('#imagem').value;
+        receita.image = document.querySelector('#imagem').value;
 
         return receita
     }
@@ -99,7 +99,6 @@ class CreateNewMeal {
     }
 
     addMeal(receita){  
-        console.log(this.arrayReceita)
         this.arrayReceita.push(receita);
         this.id++
     }
@@ -108,7 +107,7 @@ class CreateNewMeal {
         document.getElementById('title').value = '';
         document.getElementById('ingredientes').value = '';
         document.getElementById('preparo').value = '';
-        document.getElementById('imagem').value = '';
+        document.getElementById('imagem').value = ''
     }
 
     openCloseModal(){
@@ -159,24 +158,18 @@ class CreateNewMeal {
                 return obj[key]
             })
         })
-
-        document.querySelector('.listaTwo').innerHTML = todas[id - 1][2].replace(/\r?\n/g, '<br />')
-        document.querySelector('#modoDePreparoTwo').innerHTML = todas[id - 1][3] 
-
+        for(var i = 0; i < todas.length; i++){
+            if(todas[i][0] == id){
+                document.querySelector('.listaTwo').innerHTML = todas[i][2].replace(/\r?\n/g, '<br />')
+                document.querySelector('#modoDePreparoTwo').innerHTML = todas[i][3] 
+            }
+        }
     }
     
     deletar(id){
-        const todas = SetarLocalStorage.get().map(function(obj){
-            return Object.keys(obj).map(function(key){
-                return obj[key]
-            })
-        })
-        console.log(todas)
-        this.arrayReceita = todas
         for(var c = 0; c < this.arrayReceita.length; c++){
-            if(this.arrayReceita[c][0] == id){
+            if(this.arrayReceita[c].id == id){
                 this.arrayReceita.splice(c, 1)
-                console.log(this.arrayReceita)
                 SetarLocalStorage.set(this.arrayReceita)
             }
         }
