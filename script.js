@@ -63,7 +63,7 @@ class ModalOverlayVerReceita {
 class CreateNewMeal {
     constructor() {
         this.id = 1;
-        this.arrayReceita = [];
+        this.arrayReceita = SetarLocalStorage.get() || [];
     }
 
     saveMeal(){
