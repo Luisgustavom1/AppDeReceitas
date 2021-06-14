@@ -15,7 +15,12 @@ Esse site permite você pode catalogar suas próprias receitas, apertando do bot
 
 Além de receitas adicionadas por você mesmo, o site contém um card com uma receita aleatória, da API [TheMealDB](https://www.themealdb.com/api.php), para você experimentar coisas novas e se inspirar para criar pratos novas e extremamente deliciosas😋😋, o card apresenta os ingredientes, modo de preparo e uma foto do prato. Caso não goste da receita aleatória pode trocar-la sempre que quiser clicando no botão 'Trocar receita', na aba 'Ver receita'.
 
-### Linguagens
+### Linguagens🚀
 * Javascript
 * HTML
 * CSS
+ ### Redes Socias 📲
+* [Instagram](https://www.instagram.com/luisgustavom1/) 
+* Linkedin]
+* GitHub
+* Perfil Rockseat
