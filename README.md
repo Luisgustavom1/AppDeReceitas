@@ -10,7 +10,12 @@ Um app com receitas aleatórias e adicionadas por você mesmo!!🥗😃
 
 # Sobre o projeto
 ---
-#### Descrição🖨️
+### Descrição🖨️
 Esse site permite você pode catalogar suas próprias receitas, apertando do botão 'Adicionar receita', escrever os ingredientes usados para preparar a refeição, escrever o modo de preparo, além de ter a possibilidade de adicionar uma imagem para ilustrar seu prato!!📸🍱 
 
-Além de receitar adicionadas por você mesmo, o site contém um card com uma receita aleatória, da API TheMealDB
+Além de receitas adicionadas por você mesmo, o site contém um card com uma receita aleatória, da API [TheMealDB](https://www.themealdb.com/api.php), para você experimentar coisas novas e se inspirar para criar pratos novas e extremamente deliciosas😋😋, o card apresenta os ingredientes, modo de preparo e uma foto do prato. Caso não goste da receita aleatória pode trocar-la sempre que quiser clicando no botão 'Trocar receita', na aba 'Ver receita'.
+
+### Linguagens
+* Javascript
+* HTML
+* CSS
