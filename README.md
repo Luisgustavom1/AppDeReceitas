@@ -21,6 +21,6 @@ Além de receitas adicionadas por você mesmo, o site contém um card com uma re
 * CSS
  ### Redes Socias 📲
 * [Instagram](https://www.instagram.com/luisgustavom1/) 
-* Linkedin]
-* GitHub
-* Perfil Rockseat
+* [Linkedin](https://www.linkedin.com/in/luis-gustavo-macedo-lousada-558080212/)
+* [GitHub](https://github.com/Luisgustavom1)
+* [Perfil Rockseat](https://app.rocketseat.com.br/me/luisgustavom1)
